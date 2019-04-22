@@ -20,7 +20,7 @@ public class ProductVO {
     private String catagoryName;
 
     @JsonProperty("type")
-    private String catagoryType;
+    private Integer catagoryType;
 
     /*
     * 这是最内层对象，是一个集合，需要再写一个集合类
