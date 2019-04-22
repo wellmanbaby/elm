@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * http请求返回的最外层对象
+ * 他是最外层的数据集合类
  * Created by weiyao on 2019/4/19.
  */
 @Data
