@@ -7,6 +7,7 @@ import com.elm.demo.dataobject.ProductCategory;
 import com.elm.demo.dataobject.ProductInfo;
 import com.elm.demo.service.CategoryService;
 import com.elm.demo.service.ProductService;
+import com.elm.demo.util.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,12 +77,13 @@ public class BuyerProductController {
             productVOList.add(productVO);
         }
 
-        //最外层
+       /* //最外层
+       //用return ResultVOUtil.success(productVOList)代替
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(0);
         resultVO.setMsg("成功");
 
-        resultVO.setData(productVOList);
+        resultVO.setData(productVOList);*/
 
         //中间层
        /* ProductVO productVO = new ProductVO();
@@ -91,7 +93,7 @@ public class BuyerProductController {
         ProductInfoVO productInfoVO = new ProductInfoVO();
         productVO.setProductInfoVOList(Arrays.asList(productInfoVO));
 */
-        return resultVO;
+        return ResultVOUtil.success(productVOList);
 
     }
 }
