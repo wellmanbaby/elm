@@ -5,12 +5,14 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /*
 * 订单详情类
 * */
 @Entity
+@Table(name = "cdn_od_zj")
 @Data
 public class OrderDetail {
     @Id
