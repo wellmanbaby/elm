@@ -39,8 +39,4 @@ public class OrderMaster {
     /*支付状态，默认0为未支付*/
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
 
-
-
-
-
 }
