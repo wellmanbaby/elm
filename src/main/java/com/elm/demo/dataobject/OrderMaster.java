@@ -1,6 +1,7 @@
 package com.elm.demo.dataobject;
 
 import com.elm.demo.enums.OrderStatusEnum;
+import com.elm.demo.enums.PayStatusEnum;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public class OrderMaster {
     private Integer orderStatus = OrderStatusEnum.NEW.getCode();
 
     /*支付状态，默认0为未支付*/
-    private Integer payStatus = 0;
+    private Integer payStatus = PayStatusEnum.WAIT.getCode();
 
 
 
