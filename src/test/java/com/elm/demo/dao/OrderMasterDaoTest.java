@@ -1,6 +1,7 @@
 package com.elm.demo.dao;
 
 import com.elm.demo.dataobject.OrderMaster;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class OrderMasterDaoTest {
 
     @Autowired
@@ -45,5 +47,13 @@ public class OrderMasterDaoTest {
         Assert.assertNotEquals(0,result.getTotalElements());
 
         System.out.println(result.getTotalElements());
+    }
+
+    @Test
+    public void findOne() throws Exception {
+        OrderMaster orderMaster = new OrderMaster();
+        OrderMaster result = orderMasterDao.findByOrderId("123456");
+        log.info("[查询单个订单] result=={}",result);
+        Assert.assertNotNull(result);
     }
 }
