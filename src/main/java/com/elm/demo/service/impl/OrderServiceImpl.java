@@ -5,7 +5,10 @@ import com.elm.demo.dao.OrderMasterDao;
 import com.elm.demo.dataobject.OrderDetail;
 import com.elm.demo.dataobject.OrderMaster;
 import com.elm.demo.dataobject.ProductInfo;
+import com.elm.demo.dto.CartDTO;
 import com.elm.demo.dto.OrderDTO;
+import com.elm.demo.enums.OrderStatusEnum;
+import com.elm.demo.enums.PayStatusEnum;
 import com.elm.demo.enums.ResultEnum;
 import com.elm.demo.exception.SellException;
 import com.elm.demo.service.OrderService;
@@ -17,10 +20,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
@@ -48,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             //2.计算订单总价
-            orderAmount = orderDetail.getProductPrice()
+            orderAmount = productInfo.getProductPrice()
                     .multiply(new BigDecimal(orderDetail.getProductQuantity()))
                     .add(orderAmount);
             //订单详情入库
@@ -67,13 +75,21 @@ public class OrderServiceImpl implements OrderService {
 
         //3.写入订单数据库（orderMaster和orderDetail）
         OrderMaster orderMaster = new OrderMaster();
+        BeanUtils.copyProperties(orderDTO,orderMaster);
         orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
-        BeanUtils.copyProperties(orderDTO,orderMaster);
+        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
+        //BeanUtils.copyProperties(orderDTO,orderMaster);这个会覆盖orderId和OrderAmount，所有前移
         orderMasterDao.save(orderMaster);
 
         //4.扣库存
-        return null;
+        //会出现多线程超买的现象，要是两个线程同时访问查库存，库存都是1，都会购买，出错，redis锁
+        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new CartDTO(e.getProductId(),e.getProductQuantity())).collect(Collectors.toList());
+        productService.decreaseStock(cartDTOList);
+
+        return orderDTO;
     }
 
     @Override

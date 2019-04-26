@@ -1,6 +1,7 @@
 package com.elm.demo.service;
 
 import com.elm.demo.dataobject.ProductInfo;
+import com.elm.demo.dto.CartDTO;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,8 @@ public interface ProductService {
     ProductInfo save(ProductInfo productInfo);
 
     //加库存
+    void increaseStock(List<CartDTO> cartDTOList);
 
     //减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 }
