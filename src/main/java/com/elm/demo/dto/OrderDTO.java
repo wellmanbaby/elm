@@ -3,11 +3,13 @@ package com.elm.demo.dto;
 import com.elm.demo.dataobject.OrderDetail;
 import com.elm.demo.enums.OrderStatusEnum;
 import com.elm.demo.enums.PayStatusEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 * 这些字段的意义就相当于一些经处理过的数据库字段，实质意义就是方便数据交互，提高效率。
 * */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)//如果为null就不返回给前端
 public class OrderDTO {
     /*订单id*/
     private String orderId;
@@ -49,5 +52,6 @@ public class OrderDTO {
     /*更新时间*/
     private Date updateTime;
 
-    private List<OrderDetail> orderDetailList;
+    /*给orderDetailList一个初始值，如果为空会返回一个[]*/
+    private List<OrderDetail> orderDetailList = new ArrayList<>();
 }
