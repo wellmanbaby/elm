@@ -22,13 +22,13 @@ public class ProductInfoDaoTest {
     @Test
     public void saveTest(){
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductId("123456");
+        productInfo.setProductId("12345");
         productInfo.setProductName("麻辣豆腐");
         productInfo.setProductPrice(new BigDecimal(3));
-        productInfo.setProductStock(0);
+        productInfo.setProductStock(200);
         productInfo.setProductIcon("http://xxx.com");
         productInfo.setProductDescription("十三香豆腐");
-        productInfo.setProductStatus(1);
+        productInfo.setProductStatus(0);
         productInfo.setCategoryType(4);
         ProductInfo result = productInfoDao.save(productInfo);
         Assert.assertNotNull(result);

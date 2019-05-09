@@ -43,7 +43,7 @@ public class OrderMasterDaoTest {
         PageRequest request = PageRequest.of(0,1);
         //PageRequest里面会实现Pageable
         Page<OrderMaster> result = orderMasterDao.findByBuyerOpenid(OPENID, request);
-
+        log.info("[根据OPENID查询单个订单] result=={}",result);
         Assert.assertNotEquals(0,result.getTotalElements());
 
         System.out.println(result.getTotalElements());

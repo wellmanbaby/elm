@@ -1,6 +1,7 @@
 package com.elm.demo.dao;
 
 import com.elm.demo.dataobject.ProductCategory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class ProductCategoryDaoTest {
     @Autowired
     private ProductCategoryDao productCategoryDao;
@@ -25,7 +27,7 @@ public class ProductCategoryDaoTest {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryName("女生最爱");
         productCategory.setCategoryType(3);
-       /* productCategory.setCategoryName("男生最爱");
+        /*productCategory.setCategoryName("男生最爱");
         productCategory.setCategoryType(4);*/
         productCategoryDao.save(productCategory);
     }
@@ -50,6 +52,8 @@ public class ProductCategoryDaoTest {
         List<Integer> list = Arrays.asList(3,4,13);
 
         List<ProductCategory> result = productCategoryDao.findByCategoryTypeIn(list);
+        /*log.info("[查询类目列表] result=={}",result);*/
+        log.info("[查询类目列表] result=={}",result);
         Assert.assertNotEquals(0,result.size());
     }
 }

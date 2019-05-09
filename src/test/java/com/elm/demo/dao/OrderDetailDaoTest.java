@@ -22,9 +22,9 @@ public class OrderDetailDaoTest {
     @Test
     public void saveTest(){
         OrderDetail orderDetail = new OrderDetail();
-        orderDetail.setDetailId("123456789");
-        orderDetail.setOrderId("2222222");
-        orderDetail.setProductId("13131313");
+        orderDetail.setDetailId("12345678");
+        orderDetail.setOrderId("33333333");
+        orderDetail.setProductId("1312123");
         orderDetail.setProductIcon("http://xxxxwwx.jpg");
         orderDetail.setProductName("鱼");
         orderDetail.setProductPrice(new BigDecimal(34));
@@ -35,7 +35,7 @@ public class OrderDetailDaoTest {
 
     @Test
     public void findByOrderId() throws Exception {
-        List<OrderDetail> orderDetailList = orderDetailDao.findByOrderId("1111111");
+        List<OrderDetail> orderDetailList = orderDetailDao.findByOrderId("33333333");
         System.out.println(orderDetailList);
         Assert.assertNotEquals(0,orderDetailList.size());
     }

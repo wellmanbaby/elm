@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +92,7 @@ public class BuyerProductController {
         ProductInfoVO productInfoVO = new ProductInfoVO();
         productVO.setProductInfoVOList(Arrays.asList(productInfoVO));
 */
+       //这里用了自己写的ResultVOUtil工具类简化输出结果
         return ResultVOUtil.success(productVOList);
 
     }
